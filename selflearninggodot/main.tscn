@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://xsa788ffwdyf"]
+
+[ext_resource type="PackedScene" uid="uid://dsnwj7i64kfbl" path="res://player.tscn" id="1_3q47k"]
+[ext_resource type="Script" path="res://playertimer.gd" id="2_7loxu"]
+[ext_resource type="PackedScene" uid="uid://ba6fxkf7ik7kx" path="res://enemy.tscn" id="2_vg2nx"]
+[ext_resource type="PackedScene" uid="uid://c2df8ycps6ao4" path="res://tommy.tscn" id="3_ng0n6"]
+
+[sub_resource type="Curve2D" id="Curve2D_6fm7a"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 640, 0, 0, 0, 0, 0, 640, 640, 0, 0, 0, 0, 0, 640, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="Main" type="Node"]
+script = ExtResource("2_7loxu")
+enemyscene = ExtResource("2_vg2nx")
+tommyscene = ExtResource("3_ng0n6")
+
+[node name="Player" parent="." instance=ExtResource("1_3q47k")]
+position = Vector2(296, 296)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_6fm7a")
+
+[node name="SpawnPath" type="PathFollow2D" parent="Path2D"]
+
+[node name="Button" type="Button" parent="."]
+offset_left = 192.0
+offset_top = 176.0
+offset_right = 448.0
+offset_bottom = 232.0
+text = "Start I think
+WASD or arrow keys to move
+X or K to Bomb (Every 5 seconds)"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 272.0
+offset_top = 16.0
+offset_right = 360.0
+offset_bottom = 39.0
+text = "Score:
+"
+
+[connection signal="start" from="." to="." method="_on_start"]
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer" to="Timer" method="_on_timeout"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button" to="Player" method="_on_button_pressed"]

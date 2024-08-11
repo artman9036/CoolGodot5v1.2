@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://x6buyj3nmrs2"]
+
+[ext_resource type="Texture2D" uid="uid://68h0tvdyjyct" path="res://cg5kernal.png" id="1_6s34w"]
+[ext_resource type="Script" path="res://cg_bomb.gd" id="1_w00a7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fr8qv"]
+size = Vector2(258, 258)
+
+[node name="CGBomb" type="Area2D"]
+position = Vector2(-258, -258)
+script = ExtResource("1_w00a7")
+
+[node name="Cg5Kernal" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(128.75, 128.75)
+scale = Vector2(0.402344, 0.402344)
+texture = ExtResource("1_6s34w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(129, 129)
+shape = SubResource("RectangleShape2D_fr8qv")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

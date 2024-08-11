@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2df8ycps6ao4"]
+
+[ext_resource type="Script" path="res://tommy.gd" id="1_cp4gm"]
+[ext_resource type="Texture2D" uid="uid://nog835obw43s" path="res://tomskakernal.png" id="1_jl5ib"]
+[ext_resource type="PackedScene" uid="uid://ba6fxkf7ik7kx" path="res://enemy.tscn" id="2_vmj5d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7erfh"]
+
+[node name="Tommy" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_cp4gm")
+enemyscene = ExtResource("2_vmj5d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7erfh")
+
+[node name="Tomskakernal" type="Sprite2D" parent="."]
+position = Vector2(320, 96)
+scale = Vector2(0.657104, 0.344718)
+texture = ExtResource("1_jl5ib")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
